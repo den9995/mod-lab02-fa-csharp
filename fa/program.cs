@@ -127,9 +127,45 @@ namespace fans
   
   public class FA3
   {
+    public static State init = new State()
+    {
+        Name = "init",
+        IsAcceptState = false,
+        Transitions = new Dictionary<char, State>()
+    };
+    public static State one1 = new State()
+    {
+        Name = "one 1",
+        IsAcceptState = false,
+        Transitions = new Dictionary<char, State>()
+    };
+    public static State two1= new State()
+    {
+        Name = "two 1",
+        IsAcceptState = true,
+        Transitions = new Dictionary<char, State>()
+    };
+    public FA3()
+    {
+        init.Transitions['0'] = init;
+        init.Transitions['1'] = one1;
+        one1.Transitions['0'] = init;
+        one1.Transitions['1'] = two1;
+        two1.Transitions['0'] = two1;
+        two1.Transitions['1'] = two1;
+    }
+    
+    State Init = init;
     public bool? Run(IEnumerable<char> s)
     {
-      return false;
+       State current = Init;
+       foreach (var c in s) 
+       {
+           current = current.Transitions[c]; 
+           if (current == null)             
+               return null;
+       }
+       return current.IsAcceptState;
     }
   }
 
