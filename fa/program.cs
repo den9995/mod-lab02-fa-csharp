@@ -60,7 +60,7 @@ namespace fans
         fault.Transitions['1'] = fault;
         
     }
-    State Init = a;
+    State Init = init;
     public bool? Run(IEnumerable<char> s)
     {
        State current = Init;
