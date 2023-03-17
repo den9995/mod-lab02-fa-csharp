@@ -16,9 +16,61 @@ namespace fans
 
   public class FA1
   {
+    public static State init = new State()
+    {
+        Name = "init",
+        IsAcceptState = false,
+        Transitions = new Dictionary<char, State>()
+    };
+    public static State one0 = new State()
+    {
+        Name = "one 0",
+        IsAcceptState = false,
+        Transitions = new Dictionary<char, State>()
+    };
+    public static State one1 = new State()
+    {
+        Name = "one 1",
+        IsAcceptState = false,
+        Transitions = new Dictionary<char, State>()
+    };
+    public static State ones = new State()
+    {
+        Name = "ones",
+        IsAcceptState = true,
+        Transitions = new Dictionary<char, State>()
+    };
+    public static State fault = new State()
+    {
+        Name = "fault",
+        IsAcceptState = false,
+        Transitions = new Dictionary<char, State>()
+    };
+    public FA1()
+    {
+        init.Transactions['0'] = one0;
+        init.Transactions['1'] = one1;
+        one0.Transactions['0'] = fault;
+        one0.Transactions['1'] = ones;
+        one1.Transactions['0'] = ones;
+        one1.Transactions['1'] = one1;
+        ones.Transactions['0'] = fault;
+        ones.Transactions['1'] = ones;
+        fault.Transactions['0'] = fault;
+        fault.Transactions['1'] = fault;
+        
+    }
+    state Init = a;
     public bool? Run(IEnumerable<char> s)
     {
-      return false;
+       State current = Init;
+       foreach (var c in s) 
+       {
+           current = current.Transitions[c]; 
+           if (current == null)             
+               return null;
+       }
+       return current.IsAcceptState;
     }
   }
 
