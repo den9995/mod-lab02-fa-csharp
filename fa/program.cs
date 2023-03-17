@@ -48,16 +48,16 @@ namespace fans
     };
     public FA1()
     {
-        init.Transactions['0'] = one0;
-        init.Transactions['1'] = one1;
-        one0.Transactions['0'] = fault;
-        one0.Transactions['1'] = ones;
-        one1.Transactions['0'] = ones;
-        one1.Transactions['1'] = one1;
-        ones.Transactions['0'] = fault;
-        ones.Transactions['1'] = ones;
-        fault.Transactions['0'] = fault;
-        fault.Transactions['1'] = fault;
+        init.Transitions['0'] = one0;
+        init.Transitions['1'] = one1;
+        one0.Transitions['0'] = fault;
+        one0.Transitions['1'] = ones;
+        one1.Transitions['0'] = ones;
+        one1.Transitions['1'] = one1;
+        ones.Transitions['0'] = fault;
+        ones.Transitions['1'] = ones;
+        fault.Transitions['0'] = fault;
+        fault.Transitions['1'] = fault;
         
     }
     State Init = a;
